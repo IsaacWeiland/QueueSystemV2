@@ -1,0 +1,40 @@
+@model Host
+
+@{
+    Layout = null;
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@Model.HostName's Room</title>
+</head>
+<body>
+<p>Your PIN is: @Model.Pin</p>
+<label for="gameCode">Enter the game code/link here</label>
+<input type="text" id="gameCode"/>
+<label for="playerNumberSendTo">Send to</label>
+<input type="number" step="1" id="playerNumberSendTo"/>
+<input type="button" id="inputParams"/>
+<div id="getPlayerList">
+
+</div>
+<script>
+    function getPlayerList(){
+    fetch('@Url.Action("GetPlayerList", "Host")' + '?pin=' + '@Model.Pin', {
+    method: 'GET',
+    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(response => response.text())
+    .then(html => {
+    document.getElementById("getPlayerList").innerHTML = html;
+    })
+    .catch(error => console.error("Error fetching info:", error))
+    }
+    setInterval(getPlayerList, 5000);
+    
+</script>
+</body>
+</html>

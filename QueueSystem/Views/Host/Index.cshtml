@@ -1,0 +1,8 @@
+@model Host
+
+@using (Html.BeginForm("Room","Host", "Post"))
+{
+        <p>Enter the name for your room: </p>
+        <input type="text" name="hostName" class="form-control" value=""/>
+        <input type="submit" value="Submit" class="bt btn-primary"/>
+}
