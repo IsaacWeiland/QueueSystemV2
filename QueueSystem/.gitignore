@@ -1,2 +1,4 @@
 appsettings.json
 DummyCode.cs
+/Views/Host/TrackerPage.cshtml
+/Views/Host/_TrackerPartialView.cshtml

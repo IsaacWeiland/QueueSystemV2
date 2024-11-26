@@ -24,11 +24,30 @@ public class HostController : Controller
         return PartialView("_PlayerListPartialView", host);
     }
 
-    public void SendGameCode(Host host, string code, int players)
+    public void SendGameCode(string code, int players, int pin)
     {
+        var host = Tracker.GetHost(pin);
         for (int i = 0; i < players; i++)
         {
             host.UserList[i].GameCode = code;
         }
+    }
+
+    public IActionResult TrackerPage()
+    {
+        try
+        {
+            return View();
+        }
+        catch (Exception)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        
+    }
+
+    public ActionResult GetAllLists()
+    {
+        return PartialView("_TrackerPartialView");
     }
 }

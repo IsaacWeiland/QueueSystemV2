@@ -10,14 +10,19 @@ public class Connector
         Pin = pin;
         Instance = this;
         Host = host;
-        GameCode = "poop";
     }
 
     public string UserName { get; set; }
-    public Host Host { get; set; }
+    public Host? Host { get; set; }
     public int Pin { get; set; }
 
     public string GameCode { get; set; }
     public Connector Instance { get; set; }
-    
+
+    public bool EndInstance()
+    {
+        Host = null;
+        Tracker.ConnectorList.Remove(this);
+        return true;
+    }
 }

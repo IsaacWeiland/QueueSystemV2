@@ -2,7 +2,6 @@
 
 @{
     Layout = null;
-    
 }
 
 <!DOCTYPE html>
@@ -16,25 +15,55 @@
 <label for="gameCode">Enter the game code/link here</label>
 <input type="text" id="gameCode"/>
 <label for="playerNumberSendTo">Send to</label>
-<input type="number" step="1" id="playerNumberSendTo"/>
-<input type="button" id="inputParams"/>
+<input type="number" step="1" min="1" id="playerNumberSendTo"/>
+<input type="button" value="Enter" id="inputParams"/>
 <div id="getPlayerList">
 
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function getPlayerList(){
-    fetch('@Url.Action("GetPlayerList", "Host")' + '?pin=' + '@Model.Pin', {
-    method: 'GET',
-    headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-    .then(response => response.text())
-    .then(html => {
-    document.getElementById("getPlayerList").innerHTML = html;
-    })
-    .catch(error => console.error("Error fetching info:", error))
+        $.ajax({
+            url: '@Url.Action("GetPlayerList", "Host")',
+            type: 'GET',
+            data: { pin: '@Model.Pin'},
+            success: function (data) {
+                $("#getPlayerList").html(data);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching info:", error);
+            }
+        });
     }
     setInterval(getPlayerList, 5000);
     
+    $(document).ready(function (){
+    $("#inputParams").click(function () {
+    const gameCode = $("#gameCode").val();
+    const playerNumber = $("#playerNumberSendTo").val();
+    if (!gameCode){
+    alert("Please enter a link to send.");
+    return;
+    }
+    if (!playerNumber || !playerNumber > @Model.MaxPlayers()){
+    alert("The number of players entered is more than you have in the queue.");
+    return;
+    }
+    $.ajax({
+    url: '@Url.Action("SendGameCode", "Host")',
+    type: 'POST',
+    data: { code: gameCode,
+    players: playerNumber,
+    pin: @Model.Pin },
+    success: function (response) {
+    $("responseContainer").html(response);
+    },
+    error: function (xhr, status, error) {
+    console.error("Error fetching data:", error);
+    }
+    });
+    });
+    });
 </script>
 </body>
 </html>

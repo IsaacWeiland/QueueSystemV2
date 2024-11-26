@@ -14,7 +14,7 @@ public class Host
     public int? Pin { get; set; }
     public string? HostName { get; set; }
     public List<Connector> UserList { get; set; }
-    public Host Instance { get; set; }
+    public Host? Instance { get; set; }
     private void PinGen()
     {
         int[] pin = new int[5];
@@ -33,5 +33,15 @@ public class Host
 
         Pin = int.Parse(pinString);
     }
-    
+
+    public int MaxPlayers()
+    {
+        return UserList.Count;
+    }
+
+    public bool EndInstance()
+    {
+        Tracker.HostList.Remove(this);
+        return true;
+    }
 }
