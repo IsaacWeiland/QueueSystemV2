@@ -35,10 +35,6 @@ public class ConnectorController : Controller
         return PartialView("_CodePartialView", connector);
     }
 
-    public void RejoinQueue(Host host, Connector connector)
-    {
-        host.UserList.Add(connector);
-    }
     
     public JsonResult UnloadEvent(int pin, string name)
     {

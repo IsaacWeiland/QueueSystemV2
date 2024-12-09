@@ -10,13 +10,14 @@ public class Connector
         Pin = pin;
         Instance = this;
         Host = host;
+        GameCode = null;
     }
 
     public string UserName { get; set; }
     public Host? Host { get; set; }
     public int Pin { get; set; }
 
-    public string GameCode { get; set; }
+    public string? GameCode { get; set; }
     public Connector Instance { get; set; }
 
     public void EndInstance(Connector connector)
@@ -24,5 +25,4 @@ public class Connector
         Tracker.ConnectorList.Remove(connector);
     }
 
-    
 }

@@ -10,12 +10,13 @@
 <head>
     <title>@Model.Host.HostName's room</title>
 </head>
-<body>
+<body onbeforeunload="alert('Leaving or refreshing the page will reset your game code and queue placement, are you sure you want to do this?')">
 <h1>Welcome @Model.UserName to @Model.Host.HostName's waiting room</h1>
 <p>Please wait for your game code from the host</p>
 <div id="getCode">
 
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function getCode(){
