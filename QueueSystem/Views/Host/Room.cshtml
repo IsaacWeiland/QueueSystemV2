@@ -64,6 +64,13 @@
     });
     });
     });
+    window.onunload = function () {
+    const pin = '@Model.Pin';
+    navigator.sendBeacon(
+    '@Url.Action("UnloadEvent","Host")' + 
+    '?pin=' + pin,
+    JSON.stringify({pin:pin}))
+    };
 </script>
 </body>
 </html>

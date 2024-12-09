@@ -1,0 +1,23 @@
+@model Host
+
+@{
+    Layout = null;
+}
+<div id="allLists"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function getAllLists(){
+$.ajax({
+url: '@Url.Action("GetAllLists", "Host")',
+type: 'GET',
+success: function (data) {
+$("#allLists").html(data);
+},
+error: function (xhr, status, error) {
+console.error("Error fetching info:", error);
+}
+});
+}
+setInterval(getAllLists, 1000);
+getAllLists()
+</script>

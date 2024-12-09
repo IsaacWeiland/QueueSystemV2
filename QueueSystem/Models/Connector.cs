@@ -19,10 +19,10 @@ public class Connector
     public string GameCode { get; set; }
     public Connector Instance { get; set; }
 
-    public bool EndInstance()
+    public void EndInstance(Connector connector)
     {
-        Host = null;
-        Tracker.ConnectorList.Remove(this);
-        return true;
+        Tracker.ConnectorList.Remove(connector);
     }
+
+    
 }

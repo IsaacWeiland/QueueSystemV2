@@ -31,6 +31,11 @@ public class HostController : Controller
         {
             host.UserList[i].GameCode = code;
         }
+
+        for (int i = players-1; i >= 0; i--)
+        {
+            host.UserList.RemoveAt(i);
+        }
     }
 
     public IActionResult TrackerPage()
@@ -49,5 +54,13 @@ public class HostController : Controller
     public ActionResult GetAllLists()
     {
         return PartialView("_TrackerPartialView");
+    }
+
+    
+    public JsonResult UnloadEvent(int pin)
+    {
+        Host host = Tracker.GetHost(pin);
+        host.EndInstance(host);
+        return Json(new { success = true });
     }
 }

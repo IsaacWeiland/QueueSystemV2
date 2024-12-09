@@ -39,9 +39,12 @@ public class Host
         return UserList.Count;
     }
 
-    public bool EndInstance()
+    public void EndInstance(Host host)
     {
-        Tracker.HostList.Remove(this);
-        return true;
+        do
+        {
+            UserList.RemoveAt(0);
+        } while (UserList.Count > 0);
+        Tracker.HostList.Remove(host);
     }
 }

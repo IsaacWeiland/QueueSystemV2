@@ -5,4 +5,8 @@
         <td>Game Code:</td>
         <td>@Model.GameCode</td>
     </tr>
+    @if (!string.IsNullOrEmpty(@Model.GameCode))
+    {
+        <button id="rejoinQueue" class="btn-primary">Rejoin Queue</button>
+    }
 </div>

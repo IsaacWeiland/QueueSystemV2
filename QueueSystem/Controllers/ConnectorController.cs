@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using QueueSystem.Models;
 using Connector = QueueSystem.Models.Connector;
+using Host = QueueSystem.Models.Host;
 
 namespace QueueSystem.Controllers;
 
@@ -13,7 +14,7 @@ public class ConnectorController : Controller
 
     public IActionResult WaitingRoom(string userName, int pinNumber)
     {
-        
+
         if (Tracker.CheckPin(pinNumber))
         {
             var roomHost = Tracker.GetHost(pinNumber);
@@ -32,5 +33,19 @@ public class ConnectorController : Controller
     {
         var connector = Tracker.GetConnector(pin, name);
         return PartialView("_CodePartialView", connector);
+    }
+
+    public void RejoinQueue(Host host, Connector connector)
+    {
+        host.UserList.Add(connector);
+    }
+    
+    public JsonResult UnloadEvent(int pin, string name)
+    {
+        Connector connector = Tracker.GetConnector(pin, name);
+        Host host = Tracker.GetHost(pin);
+        host.UserList.Remove(connector);
+        connector.EndInstance(connector);
+        return Json(new { success = true });
     }
 }

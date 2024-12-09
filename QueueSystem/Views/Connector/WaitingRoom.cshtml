@@ -18,7 +18,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function getPlayerList(){
+    function getCode(){
     $.ajax({
     url: '@Url.Action("GetCode", "Connector")',
     type: 'GET',
@@ -33,9 +33,15 @@
       }
       });
       }  
-    setInterval(getPlayerList, 5000);
-    getPlayerList();
-
+    setInterval(getCode, 5000);
+    getCode();
+    
+    
+    window.onunload = function () {
+        const url = '@Url.Action("UnloadEvent", "Connector")'
+        + '?name=' + '@Model.UserName' + '&pin=' + '@Model.Pin';
+        navigator.sendBeacon(url)
+    };
 </script>
 </body>
 </html>

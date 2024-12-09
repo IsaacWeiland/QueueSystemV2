@@ -1,0 +1,17 @@
+@model Host
+<div id="allLists">
+<h1>Hosts:</h1>
+@foreach(var host in Tracker.HostList)
+{
+    <td>
+        <tr>@host.HostName</tr>
+    </td>
+}
+<h1>Users:</h1>
+@foreach (var user in Tracker.ConnectorList)
+{
+    <td>
+        <tr>@user.UserName</tr>
+    </td>
+}
+</div>
